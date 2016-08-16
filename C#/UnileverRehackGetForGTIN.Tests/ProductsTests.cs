@@ -4,6 +4,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Linq;
+using UnileverRehackGetForGTIN.Helpers;
 
 namespace UnileverRehackGetForGTIN.Tests
 {

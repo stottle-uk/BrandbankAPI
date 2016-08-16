@@ -4,7 +4,7 @@ using System.IO;
 
 namespace UnileverRehackGetForGTIN
 {
-    internal class ProductReader
+    public class ProductReader
     {
         public ProductReader(string productsPath, string imagesPath)
         {
@@ -24,13 +24,13 @@ namespace UnileverRehackGetForGTIN
 
     }
 
-    internal class ImageInfo
+    public class ImageInfo
     {
         public string Url { get; set; }
         public string ShotTypeId { get; set; }
     }
 
-    internal class ProductsCsv
+    public class ProductsCsv
     {
         public string GTIN { get; set; }
         public string Description { get; set; }

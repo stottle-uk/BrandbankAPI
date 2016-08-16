@@ -12,7 +12,7 @@ using UnileverRehackGetForGTIN.ExtractData;
 
 namespace UnileverRehackGetForGTIN.Helpers
 {
-    internal static class ProductReaderExtensions
+    public static class ProductReaderExtensions
     {
         public static XmlNode GetData(this IEnumerable<ProductsCsv> products, Guid credentials)
         {
