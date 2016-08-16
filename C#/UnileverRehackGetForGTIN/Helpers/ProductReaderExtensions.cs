@@ -12,12 +12,12 @@ using UnileverRehackGetForGTIN.ExtractData;
 
 namespace UnileverRehackGetForGTIN.Helpers
 {
-    internal static class ProductsExtensions
+    internal static class ProductReaderExtensions
     {
         public static XmlNode GetData(this IEnumerable<ProductsCsv> products, Guid credentials)
         {
             var externalCallerHeader = new ExternalCallerHeader { ExternalCallerId = credentials };
-            using (var proxy = new DataExtractSoapClient()) //TODO: properly dispose proxy
+            using (var proxy = new DataExtractSoapClient()) //TODO: properly dispose proxy https://coding.abel.nu/2012/02/using-and-disposing-of-wcf-clients/
             {
                 return proxy.GetProductDataForGTINs(externalCallerHeader, products.Select(p => p.GTIN).ToArray());
             }
