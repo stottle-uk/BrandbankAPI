@@ -1,4 +1,4 @@
-# Brandbank - Unilever REHACK
+# Brandbank - Node Js example
 
 1. clone repo
 2. npm install
