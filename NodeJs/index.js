@@ -20,23 +20,27 @@ const soapHeader = { 'ExternalCallerHeader': { 'ExternalCallerId': authenticatio
 const url = 'https://api.brandbank.com/svc/feed/extractdata.asmx?WSDL';
 const basePath = __dirname + '/../_data'
 
-const allProducts = jsonfile.readFileSync(basePath + '/Unilever Products for REHACK.json');
+const allProducts = jsonfile.readFileSync(basePath + '/AllProducts.json');
 
 checkDirectorySync(basePath + '/Images');
 checkDirectorySync(basePath + '/Products');
 
 soap.createClient(url, (err, client) => {
     client.addSoapHeader(soapHeader, 'name', 'tns', nameSpace);
-    let take = 50;
+    let take = 30;
     for (let skipCount = 0; skipCount <= allProducts.length; skipCount += take) {
-        let products = _.take(_.drop(allProducts, skipCount), take);
-        let args = { 'gtins': { 'gtin': getGtins(products) } };
-        client.GetProductDataForGTINs(args, saveData);
+        setTimeout(() => {
+            console.log(new Date().getUTCDate().toString())
+            let products = _.take(_.drop(allProducts, skipCount), take);
+            let args = { 'gtins': { 'gtin': getGtins(products) } };
+            client.GetProductDataForGTINs(args, saveData);
+            console.log('Waiting 10 seconds')
+        }, 10000);
     };
 });
 
 function getGtins(products) {
-    return _.map(products, (product) => {
+    return _.map(products, product => {
         return product.gtin;
     });
 }
@@ -56,9 +60,8 @@ function saveData(err, result) {
     }
     _.forEach(result.GetProductDataForGTINsResult.Message.Product, (product) => {
         let productCode = product.Identity.ProductCodes.Code[0].$value;
-        let fileName = productCode + ' - ' + product.Identity.DiagnosticDescription.$value;
         saveImages(product, productCode);
-        jsonfile.writeFileSync(basePath + '/products/' + fileName + '.json', product, { spaces: 2 });
+        jsonfile.writeFileSync(basePath + '/products/' + productCode + '.json', product, { spaces: 2 });
     });
 }
 

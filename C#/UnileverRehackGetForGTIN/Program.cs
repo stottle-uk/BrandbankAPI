@@ -8,7 +8,7 @@ namespace UnileverRehackGetForGTIN
     class Program
     {
         private static readonly string _basePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\..\\_data\\"));
-        private static readonly string _productDataFilePath = Path.Combine(_basePath, "Unilever Products for REHACK.csv");
+        private static readonly string _productDataFilePath = Path.Combine(_basePath, "AllProducts.csv");
         private static readonly string _productsPath = Path.Combine(_basePath, "Products");
         private static readonly string _imagesPath = Path.Combine(_basePath, "Images");
 
@@ -18,7 +18,7 @@ namespace UnileverRehackGetForGTIN
             var productReader = new ProductReader(_productsPath, _imagesPath);
             var allProducts = productReader.GetProductsFromCsv(_productDataFilePath);
 
-            var take = 50;
+            var take = 30;
             for (var skip = 0; skip <= allProducts.Count(); skip += take)
             {
                 allProducts

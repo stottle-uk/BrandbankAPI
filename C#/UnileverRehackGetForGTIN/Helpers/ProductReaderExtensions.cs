@@ -29,7 +29,7 @@ namespace UnileverRehackGetForGTIN.Helpers
             {
                 foreach (var image in xmlNode.GetImages())
                 {
-                    var path = Path.Combine(imagesPath, string.Format("{0}-T{1}.jpg", xmlNode.GetGTIN(), image.ShotTypeId));
+                    var path = Path.Combine(imagesPath, $"{xmlNode.GetGTIN()}-T{image.ShotTypeId}.jpg");
                     var imageData = new WebClient().DownloadData(image.Url);
                     using (var memoryStream = new MemoryStream(imageData))
                     {
@@ -45,7 +45,7 @@ namespace UnileverRehackGetForGTIN.Helpers
         {
             foreach (XmlNode xmlNode in xml)
             {
-                var path = Path.Combine(productsPath, string.Format("{0} - {1}.xml", xmlNode.GetGTIN(), xmlNode.GetDescription()));
+                var path = Path.Combine(productsPath, $"{xmlNode.GetGTIN()}.xml");
                 using (var writer = new XmlTextWriter(path, Encoding.UTF8))
                 {
                     writer.Formatting = Formatting.Indented;
@@ -68,7 +68,7 @@ namespace UnileverRehackGetForGTIN.Helpers
             var node = XElement.Parse(xml.OuterXml);
             return (from diagnosticDescription
                     in node.Descendants("Identity").Descendants("DiagnosticDescription")
-                    select diagnosticDescription.Value).FirstOrDefault();
+                    select diagnosticDescription.Value).FirstOrDefault().Replace('/', '_');
         }
 
         public static IEnumerable<ImageInfo> GetImages(this XmlNode xml)
