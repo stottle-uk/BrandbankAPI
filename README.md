@@ -1,4 +1,4 @@
-# brandbankrehack2016
+# Brandbank API
 Example app to consume data and images from the Brandbank services (C#, Node.Js)
 
 Apologies for the lack of error handling... and testing...
